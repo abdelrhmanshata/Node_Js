@@ -1,0 +1,14 @@
+const { MongoClient } = require("mongodb");
+
+const url =
+  "mongodb+srv://abdelrhmanmohamedshata:AbdElrhman@mango-db.65s9p3e.mongodb.net/?retryWrites=true&w=majority&appName=mango-db";
+const client = new MongoClient(url);
+
+const main = async () => {
+  await client.connect(); // connect to MongoDB
+  console.log("Connected to MongoDB Successfully");
+  const db = client.db("codeZone"); // choose database to interact with
+  const collection = db.collection("courses"); // choose collection to interact with
+  const data = await collection.find().toArray(); // get query data from collection
+  console.log("Data", data);
+};
