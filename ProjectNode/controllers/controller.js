@@ -1,82 +1,87 @@
 const { validationResult } = require("express-validator");
-// let { courses } = require("../data/courses");
+const httpStatus = require("../utils/httpStatusText");
 
 const Course = require("../models/course.model");
+const asyncWrapper = require("../middleware/asyncWrapper");
+const appError = require("../utils/appError");
 
-const getAllCourses = async (req, res) => {
+// Get All Course
+const getAllCourses = asyncWrapper(async (req, res) => {
   // get all courses from the database using the Course model
-  const courses = await Course.find();
-  console.log(courses);
-  res.json(courses);
-};
+  const query = req.query;
+  const limit = query.limit || 10;
+  const page = query.page || 1;
 
-const getCourse = async (req, res) => {
-  // const courseID = +req.params.courseID;
-  // const course = courses.find((course) => course.id === courseID);
+  const courses = await Course.find({}, { __v: false })
+    .limit(limit)
+    .skip((page - 1) * limit);
+  res.status(200).json({ status: httpStatus.SUCCESS, data: { courses } });
+});
 
-  Course.findById(req.params.courseID)
-    .then((course) => {
-      if (!course) {
-        return res.status(404).json({
-          msg: "Course not found",
-        });
-      }
-      return res.json(course);
-    })
-    .catch((err) => {
-      console.log("Error : ", err);
-      return res.status(400).json({
-        msg: "Invalid Object ID",
-      });
-    });
-};
+// Get Course
+const getCourse = asyncWrapper(async (req, res, next) => {
+  const course = await Course.findById(req.params.courseID);
+  if (!course) {
+    const error = appError.create("Course not found", 404, httpStatus.FAIL);
+    return next(error);
+  }
+  return res.status(200).json({ status: httpStatus.SUCCESS, data: { course } });
+});
 
-const createCourse = async (req, res) => {
+// Create Course
+const createCourse = asyncWrapper(async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json(errors.array());
+    const error = appError.create(errors.array(), 400, httpStatus.FAIL);
+    return next(error);
   }
-  // const course = { id: courses.length + 1, ...req.body };
-  // courses.push(course);
-
   const newCourse = new Course(req.body);
   await newCourse.save();
-  res.status(201).json(newCourse);
-};
+  return res
+    .status(200)
+    .json({ status: httpStatus.SUCCESS, data: { course: newCourse } });
+});
 
-const updateCousre = async (req, res) => {
-  const courseID = req.body.courseID;
-  try {
-    const updateCourse = await Course.updateOne(
-      { _id: courseID },
-      {
-        $set: { ...req.body },
-      }
+// Update Course
+const updateCousre = asyncWrapper(async (req, res, next) => {
+  const courseID = req.params.courseID;
+  if (!courseID) {
+    const error = appError.create(
+      "Course ID is required",
+      400,
+      httpStatus.ERROR
     );
-    return res.status(200).json(updateCourse);
-  } catch (err) {
-    return res.status(400).json({ "Error : ": err });
+    return next(error);
   }
 
-  // const courseID = +req.params.courseID;
-  // let course = courses.find((course) => course.id == courseID);
-  // if (!course) {
-  //   return res.status(404).json({
-  //     msg: "Course not found",
-  //   });
-  // }
-  // course = { ...course, ...req.body };
-  // res.json(course);
-};
+  const updateData = { ...req.body };
+  const updatedCourse = await Course.findByIdAndUpdate(
+    courseID,
+    { $set: updateData },
+    { new: true, runValidators: true }
+  );
 
-const deleteCousre = async (req, res) => {
-  const result = await Course.deleteOne({ _id: req.params.courseID });
-  res.status(200).json({ success: true, msg: result });
+  if (!updatedCourse) {
+    const error = appError.create("Course not found", 404, httpStatus.ERROR);
+    return next(error);
+  }
 
-  // const courseID = +req.params.courseID;
-  // courses = courses.filter((course) => course.id !== courseID);
-  // res.status(200).json({ success: true, msg: "Course deleted" });
-};
+  return res.status(200).json({
+    status: httpStatus.SUCCESS,
+    data: { course: updatedCourse },
+  });
+});
+
+// Delete Course
+const deleteCousre = asyncWrapper(async (req, res) => {
+  const course = await Course.deleteOne({ _id: req.params.courseID });
+  if (!course) {
+    const error = appError.create("Course not found", 404, httpStatus.ERROR);
+    return next(error);
+  }
+
+  return res.status(200).json({ status: httpStatus.SUCCESS, data: null });
+});
 
 module.exports = {
   getAllCourses,

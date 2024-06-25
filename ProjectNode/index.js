@@ -1,10 +1,15 @@
+require("dotenv").config();
+
 const express = require("express");
+const cors = require("cors");
 const app = express();
+app.use(cors());
 app.use(express.json());
 
+const httpStatus = require("./utils/httpStatusText");
+
 const mongoose = require("mongoose");
-const url =
-  "mongodb+srv://abdelrhmanmohamedshata:AbdElrhman@mango-db.65s9p3e.mongodb.net/codeZone?retryWrites=true&w=majority&appName=mango-db";
+const url = process.env.MangoDB_Url;
 mongoose
   .connect(url)
   .then((res) => {
@@ -14,18 +19,28 @@ mongoose
     console.log("Error : ", err);
   });
 
-// const main = async () => {
-//   await client.connect(); // connect to MongoDB
-//   console.log("Connected to MongoDB Successfully");
-//   const db = client.db("codeZone"); // choose database to interact with
-//   const collection = db.collection("courses"); // choose collection to interact with
-//   const data = await collection.find().toArray(); // get query data from collection
-//   console.log("Data", data);
-// };
-
 const coursesRouter = require("./routes/route");
 app.use("/api/courses", coursesRouter); // localhost / => /api/courses   routes
 
-app.listen(5000, () => {
+// global middleware for not found router
+app.all("*", (req, res, next) => {
+  return res.status(404).json({
+    status: httpStatus.ERROR,
+    message: "this resource is not available",
+    code: 404,
+  });
+});
+
+// global error handler
+app.use((error, req, res, next) => {
+  return res.status(error.statusCode || 500).json({
+    status: error.statusText || httpStatus.ERROR,
+    code: error.statusCode || 500,
+    message: error.message,
+    data: null,
+  });
+});
+
+app.listen(process.env.PORT, () => {
   console.log("Example app listening on port 5000!");
 });
