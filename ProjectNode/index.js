@@ -19,8 +19,12 @@ mongoose
     console.log("Error : ", err);
   });
 
-const coursesRouter = require("./routes/route");
-app.use("/api/courses", coursesRouter); // localhost / => /api/courses   routes
+const coursesRouter = require("./routes/course.route");
+const userRouter = require("./routes/user.route");
+
+app.use("/api/courses", coursesRouter); // localhost / => /api/courses/
+app.use("/api/user", userRouter); // localhost / => /api/user/
+
 
 // global middleware for not found router
 app.all("*", (req, res, next) => {

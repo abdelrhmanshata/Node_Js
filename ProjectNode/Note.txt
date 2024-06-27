@@ -1,0 +1,4 @@
+// generate secret key to jwt
+node
+require('crypto').randomBytes(32).toString('hex');
+copy result to secret key to jwt
