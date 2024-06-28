@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { body } = require("express-validator");
 let controller = require("../controllers/course.controller");
-const {validationSchema} = require("../middleware/validationSchema");
+const { validationSchema } = require("../middleware/validationSchema");
+const verifyToken = require("../middleware/verifyToken");
+const userRoles = require("../utils/userRoles");
+const allowedTo = require("../middleware/allowedTo");
 
 router
   .route("/")
@@ -13,6 +15,10 @@ router
   .route("/:courseID")
   .get(controller.getCourse)
   .patch(controller.updateCousre)
-  .delete(controller.deleteCousre);
+  .delete(
+    verifyToken,
+    allowedTo(userRoles.ADMIN, userRoles.MANGER),
+    controller.deleteCousre
+  );
 
 module.exports = router;

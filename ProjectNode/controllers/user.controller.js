@@ -17,7 +17,9 @@ const getAllUser = asyncWrapper(async (req, res) => {
 });
 
 const register = asyncWrapper(async (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;
+
+
 
   const user = await User.findOne({ email: email });
   if (user) {
@@ -37,10 +39,16 @@ const register = asyncWrapper(async (req, res, next) => {
     lastName,
     email,
     password: hashPassword,
+    role,
+    avatar:req.file.filename 
   });
 
   // generate token
-  const token = await generateJWT({ email: newUser.email, id: newUser._id });
+  const token = await generateJWT({
+    email: newUser.email,
+    id: newUser._id,
+    role: newUser.role,
+  });
   newUser.token = token;
 
   await newUser.save();
@@ -75,7 +83,11 @@ const login = asyncWrapper(async (req, res, next) => {
     // Check if password matches
     if (matchedPassword) {
       // generate token
-      const token = await generateJWT({ email: user.email, id: user._id });
+      const token = await generateJWT({
+        email: user.email,
+        id: user._id,
+        role: user.role,
+      });
       user.token = token;
 
       return res.status(200).json({

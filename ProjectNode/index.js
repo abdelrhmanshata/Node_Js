@@ -1,8 +1,11 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require("node:path");
+
 const cors = require("cors");
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -24,6 +27,7 @@ const userRouter = require("./routes/user.route");
 
 app.use("/api/courses", coursesRouter); // localhost / => /api/courses/
 app.use("/api/user", userRouter); // localhost / => /api/user/
+app.use("/uploads",express.static(path.join(__dirname,"uploads"))); // static file
 
 
 // global middleware for not found router
