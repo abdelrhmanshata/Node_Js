@@ -1,0 +1,2 @@
+// set value environment
+$env:PORT = 7000
