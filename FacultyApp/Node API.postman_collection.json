@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "cb3f3a16-2978-41db-b665-d66bd96d7152",
+		"name": "Node API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30937593"
+	},
+	"item": [
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Json",
+					"item": [
+						{
+							"name": "getAllStudents",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/students/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"students",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getStudentByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/students/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"students",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createNewStudent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AbdElrhman\",\r\n    \"age\": 21,\r\n    \"grade\": \"A\",\r\n    \"email\": \"abdelrhman@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateStudent",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AbdElrhmanShata\",\r\n    \"age\": 21,\r\n    \"grade\": \"A\",\r\n    \"email\": \"abdelrhman@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/students/1724949895516",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"students",
+										"1724949895516"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteStudent",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AbdElrhman\",\r\n    \"age\": 21,\r\n    \"grade\": \"A\",\r\n    \"email\": \"abdelrhman@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/students/1724949895516",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"students",
+										"1724949895516"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mango_BD",
+					"item": [
+						{
+							"name": "getAllStudents",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/db/students/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"db",
+										"students",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getStudentByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/db/students/66d0a529eb1085a82cac60dd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"db",
+										"students",
+										"66d0a529eb1085a82cac60dd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createNewStudent",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NmNmY2I4ZGVmMWYxNjQxMWU3NTYwNWUiLCJhZG1pblJvbGUiOnRydWUsImlhdCI6MTcyNDk0ODk4NX0.NWDz_YvIu1Zo6p1hA_xqpameG0dUHOASaqI2_OWlK1o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ahmed\",\r\n    \"age\": 25,\r\n    \"grade\": \"A\",\r\n    \"email\": \"ahmed@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/db/students/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"db",
+										"students",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateStudent",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NmNmY2I4ZGVmMWYxNjQxMWU3NTYwNWUiLCJhZG1pblJvbGUiOnRydWUsImlhdCI6MTcyNDk0ODk4NX0.NWDz_YvIu1Zo6p1hA_xqpameG0dUHOASaqI2_OWlK1o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AbdElrhmanShata\",\r\n    \"age\": 25,\r\n    \"grade\": \"A\",\r\n    \"email\": \"abdelrhman@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/db/students/66d0a5d3da5e62b6013a0d0b",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"db",
+										"students",
+										"66d0a5d3da5e62b6013a0d0b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteStudent",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NmNmY2I4ZGVmMWYxNjQxMWU3NTYwNWUiLCJhZG1pblJvbGUiOnRydWUsImlhdCI6MTcyNDk0ODk4NX0.NWDz_YvIu1Zo6p1hA_xqpameG0dUHOASaqI2_OWlK1o",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AbdElrhman\",\r\n    \"age\": 25,\r\n    \"grade\": \"A\",\r\n    \"email\": \"abdelrhman@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/db/students/66d0a5d3da5e62b6013a0d0b",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"db",
+										"students",
+										"66d0a5d3da5e62b6013a0d0b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ail\",\r\n    \"email\": \"ail@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "AddAdminRole",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NmNmY2I4ZGVmMWYxNjQxMWU3NTYwNWUiLCJhZG1pblJvbGUiOnRydWUsImlhdCI6MTcyNDk0ODk4NX0.NWDz_YvIu1Zo6p1hA_xqpameG0dUHOASaqI2_OWlK1o",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/66d0a1ad4c24b0d957e61d77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"66d0a1ad4c24b0d957e61d77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdminRole",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NmNmY2I4ZGVmMWYxNjQxMWU3NTYwNWUiLCJhZG1pblJvbGUiOnRydWUsImlhdCI6MTcyNDk0ODk4NX0.NWDz_YvIu1Zo6p1hA_xqpameG0dUHOASaqI2_OWlK1o",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/66d0a1ad4c24b0d957e61d77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"66d0a1ad4c24b0d957e61d77"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
